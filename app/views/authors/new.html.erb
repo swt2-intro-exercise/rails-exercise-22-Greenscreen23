@@ -1,3 +1,21 @@
 <h1>A new author appears</h1>
 
-You might have just created a new author!
+You can now create a new author here:
+
+<%= form_with scope: :author, local: true do |form| %>
+    <p>
+        <%= form.label :first_name %><br>
+        <%= form.text_field :first_name %>
+    </p>
+    <p>
+        <%= form.label :last_name %><br>
+        <%= form.text_field :last_name %>
+    </p>
+    <p>
+        <%= form.label :homepage %><br>
+        <%= form.text_field :homepage %>
+    </p>
+    <p>
+        <%= form.submit %>
+    </p>
+<% end %>
