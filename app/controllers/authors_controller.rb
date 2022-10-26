@@ -6,7 +6,11 @@ class AuthorsController < ApplicationController
         @author = Author.new(author_params)
 
         @author.save
-        redirect_to root_path, notice: 'Success!'
+        redirect_to @author
+    end
+
+    def show
+        @author = Author.find(params[:id])
     end
 
 private
