@@ -34,7 +34,8 @@ describe 'Author index page', type: :feature do
     # Then
     authors.each do |author|
       expect(page).to have_text author.name
-      expect(page).to have_link 'Visit', href: author.homepage
+      expect(page).to have_link author.homepage, href: author.homepage
+      expect(page).to have_link 'Details', href: author_path(author)
     end
   end
 end
