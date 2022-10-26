@@ -45,4 +45,30 @@ describe "Author", type: :model do
     expect(author).to eq(similar_author)
     expect(author).not_to eq(different_author)
   end
+
+  it "should mark authors without last name invalid" do
+    # Given
+    first_name = "Alan"
+    last_name = ""
+    homepage = "http://wikipedia.org/Alan_Turing"
+
+    # When
+    author = Author.new(first_name: first_name, last_name: last_name, homepage: homepage)
+
+    # Then
+    expect(author).to_not be_valid
+  end
+
+  it "should mark authors without http in front of their homepage invalid" do
+    # Given
+    first_name = "Alan"
+    last_name = "Turing"
+    homepage = "wikipedia.org/Alan_Turing"
+
+    # When
+    author = Author.new(first_name: first_name, last_name: last_name, homepage: homepage)
+
+    # Then
+    expect(author).to_not be_valid
+  end
 end
