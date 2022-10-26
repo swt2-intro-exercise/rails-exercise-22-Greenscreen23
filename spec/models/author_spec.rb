@@ -13,4 +13,17 @@ describe "Author", type: :model do
     expect(author.last_name).to eq(last_name)
     expect(author.homepage).to eq(homepage)
   end
+
+  it "should concatinate first name and last name to name" do
+    # Given
+    first_name = "Alan"
+    last_name = "Turing"
+    name = "Alan Turing"
+
+    # When
+    author = Author.new(:first_name => first_name, :last_name => last_name)
+
+    # Then
+    expect(author.name).to eq(name)
+  end
 end
