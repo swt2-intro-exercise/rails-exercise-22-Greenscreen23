@@ -15,6 +15,6 @@ class Author < ApplicationRecord
 
 private
   def homepage_starts_with_http
-    errors.add(:name, "s homepage doesn't start with http") unless homepage.start_with?("http")
+    errors.add(homepage, "doesn't start with http") unless homepage.start_with?("http")
   end
 end

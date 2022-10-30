@@ -30,4 +30,21 @@ describe "New author page", type: :feature do
     # Then
     expect(Author.last).to eq(author)
   end
+
+  it "should show an error when trying to create an invalid author" do
+    # Given
+    visit new_author_path
+    first_name = "Alan"
+    last_name = "" # Intentionally left empty
+    homepage = "http://wikipedia.org/Alan_Turing"
+
+    # When
+    page.fill_in('author[first_name]', with: first_name)
+    page.fill_in('author[last_name]', with: last_name)
+    page.fill_in('author[homepage]', with: homepage)
+    find('input[type="submit"]').click
+
+    # Then
+    expect(page).to have_selector('div#error_explanation')
+  end
 end
