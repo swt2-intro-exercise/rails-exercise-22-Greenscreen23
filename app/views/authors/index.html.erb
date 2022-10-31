@@ -12,6 +12,7 @@
         <td><%= author.name %></td>
         <td><%= link_to author.homepage, author.homepage %></td>
         <td><%= link_to 'Details', author_path(author) %></td>
+        <td><%= link_to 'Edit', edit_author_path(author) %></td>
       </tr>
     <% end %>
   </tbody>
