@@ -13,17 +13,21 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/papers", type: :request do
-  
+
   # This should return the minimal set of attributes required to create a valid
   # Paper. As you add validations to Paper, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) { {
+    :title => "Some paper",
+    :venue => "HPI",
+    :year => 2005,
+  } }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:invalid_attributes) { {
+    :title => nil,
+    :venue => nil,
+    :year => nil,
+  } }
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -77,26 +81,31 @@ RSpec.describe "/papers", type: :request do
         }.to change(Paper, :count).by(0)
       end
 
-    
+
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post papers_url, params: { paper: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
-    
+
     end
   end
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) { {
+        :title => "Some other paper",
+        :venue => "KIT",
+        :year => 2010,
+      } }
 
       it "updates the requested paper" do
         paper = Paper.create! valid_attributes
         patch paper_url(paper), params: { paper: new_attributes }
         paper.reload
-        skip("Add assertions for updated state")
+
+        expect(paper.title).to eq(new_attributes[:title])
+        expect(paper.venue).to eq(new_attributes[:venue])
+        expect(paper.year).to eq(new_attributes[:year])
       end
 
       it "redirects to the paper" do
@@ -108,13 +117,13 @@ RSpec.describe "/papers", type: :request do
     end
 
     context "with invalid parameters" do
-    
+
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         paper = Paper.create! valid_attributes
         patch paper_url(paper), params: { paper: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
-    
+
     end
   end
 
