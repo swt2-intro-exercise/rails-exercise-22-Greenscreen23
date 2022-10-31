@@ -37,6 +37,20 @@ describe 'Author index page', type: :feature do
       expect(page).to have_link author.homepage, href: author.homepage
       expect(page).to have_link 'Details', href: author_path(author)
       expect(page).to have_link 'Edit', href: edit_author_path(author)
+      expect(page).to have_link "Delete", href: author_path(author)
     end
+  end
+
+  it "should delete an author when delete is pressed" do
+    # Given
+    author = FactoryBot.create :author
+    authors_count = Author.count
+
+    # When
+    visit authors_path
+    find_link('Delete', href: author_path(author)).click
+
+    # Then
+    expect(Author.count).to be(authors_count-1)
   end
 end
